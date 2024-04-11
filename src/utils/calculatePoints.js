@@ -9,9 +9,7 @@ const scoringPatterns = [
   ];
   
   
-  
-//   let scoreCard = [1,1,2,3,4]
-//   console.log(scoreCard.sort())
+
   
   export function calculatePoints(scoreCard) {
   
@@ -32,70 +30,49 @@ const scoringPatterns = [
   
   }
   
-//   console.log(calculatePoints(scoreCard))
-  
-  // function returnPoints(sorted){
-  //   let points = 0;
-  //   let uniqueNumber = sorted[0]
-  //   for(let i = 0; i < sorted.length; i++){
-  //     if(sorted[i+1] !== sorted(i)){
-  //       uniqueNumber = sorted[i+1]
-  //     } 
-  
-  //   }
-  // }
-  
-  
+
   function returnPoints(sorted) {
-    let mostRepeatedNumber = sorted[0]; // Initialize the most repeated number to the first element
-    let maxCount = 1; // Initialize the maximum count to 1
-    let currentNumber = sorted[0]; // Initialize the current number being checked
-    let currentCount = 1; // Initialize the count for the current number
+    let mostRepeatedNumber = sorted[0];
+    let maxCount = 1; 
+    let currentNumber = sorted[0]; 
+    let currentCount = 1;
   
-    // Iterate through the sorted array starting from the second element
     for (let i = 1; i < sorted.length; i++) {
-        // If the current element is equal to the previous one, increment the count
         if (sorted[i] === currentNumber) {
             currentCount++;
         } else {
-            // If the current element is different from the previous one
-            // Check if its count is greater than the maximum count
             if (currentCount > maxCount) {
-                maxCount = currentCount; // Update the maximum count
-                mostRepeatedNumber = currentNumber; // Update the most repeated number
+                maxCount = currentCount; 
+                mostRepeatedNumber = currentNumber; 
             }
-            // Reset the current number and count to the new element
             currentNumber = sorted[i];
             currentCount = 1;
         }
     }
   
-    // Check if the last element has the highest count
     if (currentCount > maxCount) {
         maxCount = currentCount;
         mostRepeatedNumber = currentNumber;
     }
   
     if(maxCount === 2) {
-      return 1 // pair
+      return 1 
     } 
     
-    return maxCount// Return the count of the most repeated number
+    return maxCount
   }
   
   
   function isStraightSequence(array) {
-    // Sort the array to ensure sequential numbers are adjacent
     const sortedArray = array.sort((a, b) => a - b);
     
-    // Iterate through the sorted array and check if each element is one more than the previous one
     for (let i = 1; i < sortedArray.length; i++) {
         if (sortedArray[i] !== sortedArray[i - 1] + 1) {
-            return false; // If any element breaks the sequence, return false
+            return false; 
         }
     }
     
-    return true; // If all elements form a straight sequence, return true
+    return true; 
   }
 
 
