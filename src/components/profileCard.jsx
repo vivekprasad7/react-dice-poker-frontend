@@ -1,21 +1,38 @@
-export const ProfileCard = ({name, scoreCard, points}) => {
+import { getImageUrl } from "../utils/getImageUrl";
+
+export const ProfileCard = ({name, scoreCard, points, imageURL}) => {
+
     return ( 
-        <div className="border border-gray-400 rounded-2xl text-center">
-            <div className=" relative ">
-                <img src="https://topmate.io/images/homepage/expert-bg1.svg" alt="" srcset="" />
-                <span className=" absolute top-[50px] rounded-full m-auto bg-black ">
-                <img className="object-cover rounded-full m-auto w-14"src="https://topmate.io/_next/image?url=https%3A%2F%2Ftopmate-staging.s3.ap-south-1.amazonaws.com%2F4hEHanHW7mYhzweRzW81Qg.jpg&w=256&q=75" alt="" srcset="" />
-                </span>
-            </div>
+        <div className="border  shadow-md rounded-2xl text-center p-2 mb-6">
+
+<div className="relative flex justify-center items-center">
+    <img src="https://topmate.io/images/homepage/expert-bg1.svg" alt="" />
+    <span className="absolute top-[60px]">
+        <img className="object-cover rounded-full w-[100px]" src={imageURL} alt="" />
+    </span>
+</div>
+
+         
         
 
-            <h3>Jessica Parker {name}</h3>
-            <div>
-                <h3>Score: 1, 2, 3, 4, 5 {scoreCard}</h3>
+            <h3 className="mt-10 font-bold">{name}</h3>
+            {/* <div>
+                <h3>Score: {scoreCard}</h3>
+            </div> */}
+
+            <div className="flex justify-center items-center mt-2">
+                <div className="border border-gray-400 p-3 m-1">{scoreCard[0]}</div>
+                <div className="border border-gray-400 p-3 m-1">{scoreCard[1]}</div>
+                <div className="border border-gray-400 p-3 m-1">{scoreCard[2]}</div>
+                <div className="border border-gray-400 p-3 m-1">{scoreCard[3]}</div>
+                <div className="border border-gray-400 p-3 m-1">{scoreCard[4]}</div>
             </div>
 
-            <div>
-                Points: 3 {points}
+            <div className="mb-4 mt-2">
+                {
+                    points ?  <p>Points: {points}</p> : ""
+
+                }
             </div>
         </div>
     )

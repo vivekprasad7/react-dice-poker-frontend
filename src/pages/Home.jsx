@@ -5,6 +5,7 @@ import { YourTurn } from "../components/yourTurn"
 import { useAppContext } from "../contexts/appContext"
 
 import { Box, Modal } from '@mui/material';
+import { images } from "../utils/getImageUrl";
 
 
 const style = {
@@ -15,6 +16,7 @@ const style = {
     width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
+    borderRadius:'10px',
     boxShadow: 24,
     p: 4,
   };
@@ -29,11 +31,13 @@ export const Home = () => {
     return(
         <div className="h-screen ">
             <div className="flex justify-center items-center p-4 mb-4">
-                  <h1>Game of Dice</h1>  
+                  <h1 className="text-3xl ">game of <span className="font-bold">dice</span></h1>  
             </div>
             <div className="flex flex-col justify-center items-center gap-2 h-1/3">
-                {`${state?.players[state?.activePlayerIndex]}, Ready For Your Turn?` }
-                <button onClick={() => setIsModalOpen(true)}>Let's Play</button>
+            <h3><span className="font-bold">{state?.players[state?.activePlayerIndex]}</span>, Ready For Your Turn?</h3>
+                <button
+                className="p-2 m-2 border-2 border-gray-800 rounded-md transition duration-300 hover:rounded-lg font-medium"
+                 onClick={() => setIsModalOpen(true)}>Bring It On</button>
                 {/* <YourTurn/> */}
 
 
@@ -58,9 +62,14 @@ export const Home = () => {
 
 
             </div>
-            <div className="flex justify-evenly items-center">
+            <div className="flex flex-col justify-evenly items-center md:flex-row gap-3">
                 {
-                    state?.players.map((player, index) => <ProfileCard key={index} name={player} scoreCard={state?.scores[state?.activePlayerIndex]} points={state?.points[state?.activePlayerIndex]}/> )
+                    state?.players.map((player, index) => <ProfileCard 
+                    key={index} 
+                    imageURL={images[index]}
+                    name={player} 
+                    scoreCard={state?.scores[index]} 
+                    points={state?.points[index]}/> )
                 }
              
             </div>

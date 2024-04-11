@@ -97,4 +97,13 @@ const scoringPatterns = [
     
     return true; // If all elements form a straight sequence, return true
   }
+
+
+  export function calculateSumOfScores(array){
+    let sum = 0
+    for(let i = 0; i < array.length; i++){
+      sum += array[i]
+    }
+    return sum;
+  }
   

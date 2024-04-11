@@ -1,14 +1,3 @@
-
-// function returnDicePoint (scoreCard) {
-//     setTimeout(() => {
-//         for(let i = 0; i < scoreCard.length; i++){
-//             return scoreCard[i]
-//         }
-//     }, 1000)
-// }
-
-
-
 export function returnScoreCard() {
 
     let scoreCard = [];

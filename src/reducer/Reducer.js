@@ -1,7 +1,8 @@
 export const initialReducerState = {
     players:[],
     scores:[[],[],[]],
-    points:[0,0,0],
+    points:[],
+    sum:[],
     activePlayerIndex:0,
     isRolling:false
 }
@@ -17,8 +18,12 @@ export const reducerFunction = (state, action) => {
         // Start rolling > Load Module > Animation for 3 secs > Return Score Card + Points  > Submit
         case"UPDATE_SCORE":
         const updatedScores = [...state?.scores];
-        updatedScores[state.activePlayerIndex] = action.payload.scoreCard;
-        return {...state, scores: updatedScores, points: action.payload.points}
+        updatedScores[state?.activePlayerIndex] = action.payload.scoreCard;
+        const updatedPoints = [...state?.points];
+        updatedPoints[state?.activePlayerIndex] = +action.payload.points;
+        const updatedSum = [...state?.sum];
+        updatedSum[state?.activePlayerIndex] = +action.payload.sum;
+        return {...state, scores: updatedScores, points: updatedPoints, sum : updatedSum};
         case"END_ROLLING":
         return{...state, isRolling: false, activePlayerIndex: state?.activePlayerIndex + 1}
         default:

@@ -1,7 +1,11 @@
 import { useAppContext } from "../contexts/appContext"
-import { calculatePoints } from "../utils/calculatePoints"
-import { makePostRequest } from "../utils/makePostRequest"
+import { calculatePoints, calculateSumOfScores } from "../utils/calculatePoints"
+import {  addPlayer } from "../utils/apiRequests/addNewPlayer"
 import { returnScoreCard } from "../utils/returnScoreCard"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import Lottie from "lottie-react"
+import rollingDice from "../assets/rollingDice.json"
 
 export const RollingDice = ({isClose}) => {
 
@@ -11,44 +15,70 @@ export const RollingDice = ({isClose}) => {
 
     const points = calculatePoints(scoreCard)
 
+    const sum = calculateSumOfScores(scoreCard)
+
+    const navigate = useNavigate()
+
     const activePlayerData = {
         name: state?.players[state?.activePlayerIndex],
         scoreCard: state?.scores[state?.activePlayerIndex],
         points: state?.points[state?.activePlayerIndex]
     }
 
+    console.log("activePlayerData", activePlayerData)
+
+
+    
 
 
 
-    const submitScore = () => {
-        dispatch({type:"UPDATE_SCORE", payload:{scoreCard: scoreCard, points: points}})
+    const submitScore = async () => {
+        dispatch({type:"UPDATE_SCORE", payload:{scoreCard: scoreCard, points: points , sum : sum}})
 
-        if(state.activePlayerIndex <= 2) {
-
-            dispatch({type:"END_ROLLING"})
-        } else {
-            // SUBMIT SCORE
-            makePostRequest(activePlayerData)
-            
+        try {
+            await addPlayer(activePlayerData);
+            console.log("added player")
+            console.log("activePlayerIndex", state?.activePlayerIndex)
+            dispatch({ type: "END_ROLLING" });
+        } catch (error) {
+            console.error(error);
         }
+
+        if(state?.activePlayerIndex === 2)  {
+            // SUBMIT SCORE
+            navigate("/winner")
+            
+        }       
         isClose()
     }
 
+    useEffect(() => {
+        dispatch({type:"UPDATE_SCORE", payload:{scoreCard: scoreCard, points: points}})
+
+    },[] )
+
     return(
         <div className="text-center">
-            <h2>Rolling Dices</h2>
-            <p>Animation</p>
+
+            <div className="flex justify-center items-center ">
+            <Lottie className="w-14 my-4" animationData={rollingDice} />
+            </div>
+
+            <h3>Here's your Score Card</h3>
             <div className="flex justify-center items-center">
-                <div className="border border-gray-400 p-3 m-1">{scoreCard[0]}</div>
-                <div className="border border-gray-400 p-3 m-1">{scoreCard[1]}</div>
-                <div className="border border-gray-400 p-3 m-1">{scoreCard[2]}</div>
-                <div className="border border-gray-400 p-3 m-1">{scoreCard[3]}</div>
-                <div className="border border-gray-400 p-3 m-1">{scoreCard[4]}</div>
+            
+
+            <div className="border border-gray-400 p-3 m-1 transition-opacity duration-1000">{scoreCard[0]}</div>
+<div className="border border-gray-400 p-3 m-1 transition-opacity duration-1000">{scoreCard[1]}</div>
+<div className="border border-gray-400 p-3 m-1 transition-opacity duration-1000">{scoreCard[2]}</div>
+<div className="border border-gray-400 p-3 m-1 transition-opacity duration-1000">{scoreCard[3]}</div>
+<div className="border border-gray-400 p-3 m-1 transition-opacity duration-1000">{scoreCard[4]}</div>
+
             </div>
 
             <p>Congrats, you got {points} points</p>
 
-            <button onClick={() => {submitScore(); isClose();}}>Submit</button>
+            <button className="bg-black text-white px-2 py-1 rounded-md  mb-3 mt-5" onClick={() => {submitScore(); isClose();}}>Submit</button>
 
         </div>
     )

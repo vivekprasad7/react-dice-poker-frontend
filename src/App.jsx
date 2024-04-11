@@ -3,6 +3,7 @@ import './App.css'
 import { Home } from './pages/Home'
 import { Start } from './pages/Start'
 import { AddUsers } from './pages/addUsers'
+import { Winner } from './pages/winner'
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
           <Route path="/" element={<Start/>} />
           <Route path="/add-users" element={<AddUsers/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/winner" element={<Winner/>} />
+
         </Routes>
       </div>
     
