@@ -20,7 +20,7 @@ export const AddUsers = () => {
     const deletePlayers = async () => {
         try {
             const deletedPlayers = await deleteAllPlayers();
-            console.log("Deleted players:", deletedPlayers);
+            // console.log("Deleted players:", deletedPlayers);
         } catch (error) {
             console.error(error);
         }

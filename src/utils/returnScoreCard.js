@@ -10,4 +10,4 @@ export function returnScoreCard() {
     return scoreCard;
   }
   
-  console.log(returnScoreCard())
+//   console.log(returnScoreCard())
